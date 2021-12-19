@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +35,42 @@ public class MainActivity extends AppCompatActivity {
         switchIsActive = findViewById(R.id.switchStudent);
         listViewStudent = findViewById(R.id.listViewStudent);
 
+
+
+//        buttonDelete.setOnClickListener(new View.OnClickListener() {
+//            StudentModel studentModel;
+//
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    studentModel = new StudentModel(editName.getText().toString(), Integer.parseInt(editAge.getText().toString()), switchIsActive.isChecked());
+//                    Toast.makeText(MainActivity.this, studentModel.toString(), Toast.LENGTH_SHORT).show();
+//                }
+//                catch (Exception e){
+//                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+//                }
+//                DbHelper dbHelper = new DbHelper(MainActivity.this);
+//                dbHelper.deleteStudent(studentModel);
+//            }
+//        });
+//
+//        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+//            StudentModel studentModel;
+//
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    studentModel = new StudentModel(editName.getText().toString(), Integer.parseInt(editAge.getText().toString()), switchIsActive.isChecked());
+//                    Toast.makeText(MainActivity.this, studentModel.toString(), Toast.LENGTH_SHORT).show();
+//                }
+//                catch (Exception e){
+//                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+//                }
+//                DbHelper dbHelper = new DbHelper(MainActivity.this);
+//                dbHelper.updateStudent(studentModel);
+//            }
+//        });
+
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             StudentModel studentModel;
 
@@ -59,10 +96,20 @@ public class MainActivity extends AppCompatActivity {
                 ArrayAdapter arrayAdapter = new ArrayAdapter<StudentModel>(MainActivity.this, android.R.layout.simple_list_item_1,list);
                 listViewStudent.setAdapter(arrayAdapter);
 
-
-
             }
         });
+
+
+        listViewStudent.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                editName.setText("2121");
+                editAge.setText(Integer.parseInt("222"));
+                switchIsActive.setChecked(true);
+            }
+        });
+
 
     }
 }
