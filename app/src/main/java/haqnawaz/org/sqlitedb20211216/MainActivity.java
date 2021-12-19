@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    Button buttonAdd, buttonViewAll;
+    Button buttonAdd, buttonViewAll, buttonDelete, buttonUpdate;
     EditText editName, editAge;
     Switch switchIsActive;
     ListView listViewStudent;
@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         buttonAdd = findViewById(R.id.buttonAdd);
+        buttonDelete = findViewById(R.id.delete);
+        buttonUpdate = findViewById(R.id.update);
+
         buttonViewAll = findViewById(R.id.buttonViewAll);
         editName = findViewById(R.id.editTextName);
         editAge = findViewById(R.id.editTextAge);

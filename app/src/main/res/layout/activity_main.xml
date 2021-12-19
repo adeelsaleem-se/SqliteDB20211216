@@ -65,14 +65,32 @@
         app:layout_constraintTop_toTopOf="@+id/buttonViewAll"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="@+id/buttonViewAll"
+        app:layout_constraintTop_toBottomOf="@+id/buttonViewAll" />
+
     <ListView
         android:id="@+id/listViewStudent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete" />
+
+    <Button
+        android:id="@+id/update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:text="Update"
+        app:layout_constraintStart_toStartOf="@+id/buttonAdd"
         app:layout_constraintTop_toBottomOf="@+id/buttonAdd" />
 
 
