@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -18,8 +19,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     Button buttonAdd, buttonViewAll, buttonDelete, buttonUpdate;
     EditText editName, editAge;
+    TextView editId;
     Switch switchIsActive;
     ListView listViewStudent;
+    List<StudentModel> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,44 +35,10 @@ public class MainActivity extends AppCompatActivity {
         buttonViewAll = findViewById(R.id.buttonViewAll);
         editName = findViewById(R.id.editTextName);
         editAge = findViewById(R.id.editTextAge);
+        editId = findViewById(R.id.ids);
         switchIsActive = findViewById(R.id.switchStudent);
         listViewStudent = findViewById(R.id.listViewStudent);
 
-
-
-//        buttonDelete.setOnClickListener(new View.OnClickListener() {
-//            StudentModel studentModel;
-//
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    studentModel = new StudentModel(editName.getText().toString(), Integer.parseInt(editAge.getText().toString()), switchIsActive.isChecked());
-//                    Toast.makeText(MainActivity.this, studentModel.toString(), Toast.LENGTH_SHORT).show();
-//                }
-//                catch (Exception e){
-//                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-//                }
-//                DbHelper dbHelper = new DbHelper(MainActivity.this);
-//                dbHelper.deleteStudent(studentModel);
-//            }
-//        });
-//
-//        buttonUpdate.setOnClickListener(new View.OnClickListener() {
-//            StudentModel studentModel;
-//
-//            @Override
-//            public void onClick(View v) {
-//                try {
-//                    studentModel = new StudentModel(editName.getText().toString(), Integer.parseInt(editAge.getText().toString()), switchIsActive.isChecked());
-//                    Toast.makeText(MainActivity.this, studentModel.toString(), Toast.LENGTH_SHORT).show();
-//                }
-//                catch (Exception e){
-//                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-//                }
-//                DbHelper dbHelper = new DbHelper(MainActivity.this);
-//                dbHelper.updateStudent(studentModel);
-//            }
-//        });
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             StudentModel studentModel;
@@ -92,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DbHelper dbHelper = new DbHelper(MainActivity.this);
-                List<StudentModel> list = dbHelper.getAllStudents();
+                list = dbHelper.getAllStudents();
                 ArrayAdapter arrayAdapter = new ArrayAdapter<StudentModel>(MainActivity.this, android.R.layout.simple_list_item_1,list);
+                arrayAdapter.notifyDataSetChanged();
+
                 listViewStudent.setAdapter(arrayAdapter);
 
             }
@@ -104,9 +75,14 @@ public class MainActivity extends AppCompatActivity {
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                editName.setText("2121");
-                editAge.setText(Integer.parseInt("222"));
-                switchIsActive.setChecked(true);
+
+
+                editId.setText(String.valueOf(list.get(position).getId()));
+                editName.setText(list.get(position).getName());
+                editAge.setText(String.valueOf(list.get(position).getAge()));
+                switchIsActive.setChecked(list.get(position).isActive());
+
+
             }
         });
 

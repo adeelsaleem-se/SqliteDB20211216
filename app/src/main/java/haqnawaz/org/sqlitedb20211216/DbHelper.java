@@ -37,6 +37,49 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void  deleteStudent(StudentModel STUDENTModel){
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorCourses = db.rawQuery("SELECT * FROM " + STUDENT_TABLE + " WHERE " + STUDENT_ID + " = " + STUDENTModel.getId(), null);
+
+        if (cursorCourses.moveToFirst()) {
+
+            db.close();
+            db = this.getWritableDatabase();
+
+            db.delete(STUDENT_TABLE, STUDENT_ID + " = " + STUDENTModel.getId(), null);
+        }
+        cursorCourses.close();
+        db.close();
+
+    }
+
+    public void  updateStudent(StudentModel STUDENTModel){
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorCourses = db.rawQuery("SELECT * FROM " + STUDENT_TABLE + " WHERE " + STUDENT_ID + " = " + STUDENTModel.getId(), null);
+
+        if (cursorCourses.moveToFirst()) {
+
+            db.close();
+            db = this.getWritableDatabase();
+
+            ContentValues cv = new ContentValues();
+            cv.put(STUDENT_NAME, STUDENTModel.getName());
+            cv.put(STUDENT_AGE, STUDENTModel.getAge());
+            cv.put(ACTIVE_STUDENT, STUDENTModel.isActive());
+
+            db.update(STUDENT_TABLE, cv, STUDENT_ID + " = " + STUDENTModel.getId(), null);
+        }
+        cursorCourses.close();
+        db.close();
+
+    }
+
     public void  addStudent(StudentModel STUDENTModel){
         SQLiteDatabase db = this.getWritableDatabase();
         //Hash map, as we did in bundles
@@ -66,9 +109,11 @@ public class DbHelper extends SQLiteOpenHelper {
         if (cursorCourses.moveToFirst()) {
             do {
 
-                studentArrayList.add(new StudentModel(cursorCourses.getString(1),
-                      cursorCourses.getInt(2),
-                        cursorCourses.getInt(3) == 1 ? true : false));
+                StudentModel temp = new StudentModel(cursorCourses.getString(1),
+                        cursorCourses.getInt(2),
+                        cursorCourses.getInt(3) == 1 ? true : false);
+                temp.setId(cursorCourses.getInt(0));
+                studentArrayList.add(temp);
             } while (cursorCourses.moveToNext());
 
         }
