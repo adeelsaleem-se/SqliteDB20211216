@@ -40,6 +40,45 @@ public class MainActivity extends AppCompatActivity {
         listViewStudent = findViewById(R.id.listViewStudent);
 
 
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            StudentModel studentModel;
+
+            @Override
+            public void onClick(View v) {
+                try {
+                    studentModel = new StudentModel(editName.getText().toString(), Integer.parseInt(editAge.getText().toString()), switchIsActive.isChecked());
+                    studentModel.setId(Integer.parseInt(editId.getText().toString()));
+
+                    Toast.makeText(MainActivity.this, studentModel.toString(), Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+                DbHelper dbHelper = new DbHelper(MainActivity.this);
+                dbHelper.deleteStudent(studentModel);
+            }
+        });
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            StudentModel studentModel;
+
+            @Override
+            public void onClick(View v) {
+                try {
+                    studentModel = new StudentModel(editName.getText().toString(), Integer.parseInt(editAge.getText().toString()), switchIsActive.isChecked());
+                    studentModel.setId(Integer.parseInt(editId.getText().toString()));
+                    editId.setText("");
+                    Toast.makeText(MainActivity.this, studentModel.toString(), Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception e){
+                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+                DbHelper dbHelper = new DbHelper(MainActivity.this);
+                dbHelper.updateStudent(studentModel);
+            }
+        });
+
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             StudentModel studentModel;
 
